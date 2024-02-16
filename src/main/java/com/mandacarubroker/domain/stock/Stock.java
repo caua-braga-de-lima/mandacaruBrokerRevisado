@@ -1,33 +1,51 @@
 package com.mandacarubroker.domain.stock;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-@Table(name ="stock")
-@Entity(name="stock")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of="id")
 public class Stock {
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
     private String symbol;
     private String companyName;
-    private double price;
+    private Double price;
 
-    public Stock(RequestStockDTO requestStockDTO){
-        this.symbol = requestStockDTO.symbol();
-        this.companyName = requestStockDTO.companyName();
-        this.price = changePrice(requestStockDTO.price(), true);
+    public Stock(RequestStockDTO requestStockDTO) {
+        this.symbol = requestStockDTO.getSymbol();
+        this.companyName = requestStockDTO.getCompanyName();
+        this.price = requestStockDTO.getPrice();
     }
 
-    public double changePrice(double amount, boolean increase) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double changePrice(Double amount, boolean increase) {
         if (increase) {
             if (amount < this.price) {
                 return increasePrice(amount);
@@ -38,17 +56,16 @@ public class Stock {
             if (amount > this.price) {
                 return increasePrice(amount);
             } else {
-                return this.decreasePrice(amount);
+                return decreasePrice(amount);
             }
         }
     }
 
-    public double increasePrice(double amount) {
+    private Double increasePrice(Double amount) {
         return this.price + amount;
     }
 
-    public double decreasePrice(double amount) {
+    private Double decreasePrice(Double amount) {
         return this.price - amount;
     }
-
 }

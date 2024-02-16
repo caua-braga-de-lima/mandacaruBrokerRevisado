@@ -31,9 +31,12 @@ POST /stocks
 ```
 **Corpo da Solicitação (Request Body):**
 
+**O Campo "symbol" deve ser constituído de 3 letras e 1 número.**
+**O campo "companyName" deve receber um dado String e o campo "price" deve receber um valor inteiro**
+
 ```JSON
 {
-  "symbol": "BBAS3",
+  "symbol": "BBAS3", 
   "companyName": "Banco do Brasil SA",
   "price": 56.97
 }
@@ -47,6 +50,8 @@ Atualiza os detalhes de uma ação específica com base no ID.
 PUT /stocks/{id}
 ```
 **Corpo da Solicitação (Request Body):**
+**O Campo "symbol" deve ser constituído de 3 letras e 1 número.**
+**O campo "companyName" deve receber um dado String e o campo "price" deve receber um valor inteiro**
 
 ```JSON
 {
@@ -77,15 +82,22 @@ DELETE /stocks/{id}
 - Java 11 ou superior
 - Maven
 - Banco de dados
+- Spring Boot 3.2.1 ou superior
 
 ## Tecnologias Utilizadas
+- Java 11
 - Spring Boot
 - Spring Data JPA
 - Maven
 - PostgreSQL
 
 ## Contribuições
-Contribuições são bem-vindas!
+Contribuições são bem-vindas! Segue uma lista do que pode ser feito para melhorar nossa aplicação:
+- Adicionar Novos Recursos ou Endpoints
+- Aprimorar a Validação de Dados
+- Implementar Webhooks ou Notificações
+- Otimizar o desempenho da API
+- Traduzir a Documentação ou Mensagens de Erro
 
 ## Licença
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
