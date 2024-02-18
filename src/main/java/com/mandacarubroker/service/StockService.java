@@ -8,11 +8,16 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @Service
 public class StockService {
@@ -66,6 +71,30 @@ public class StockService {
             }
             errorMessage.delete(errorMessage.length() - 2, errorMessage.length());
             throw new ConstraintViolationException(errorMessage.toString(), violations);
+        }
+    }
+
+    public static class RequestStockDTOTests {
+
+        private Validator validator;
+
+        @Before
+        public void setUp() {
+            validator = Validation.buildDefaultValidatorFactory().getValidator();
+        }
+
+        @Test
+        public void testValidRequestStockDTO() {
+            RequestStockDTO requestStockDTO = new RequestStockDTO("ABC123", "Company Name", 10.5);
+            Set<ConstraintViolation<RequestStockDTO>> violations = validator.validate(requestStockDTO);
+            assertTrue(violations.isEmpty());
+        }
+
+        @Test
+        public void testInvalidSymbol() {
+            RequestStockDTO requestStockDTO = new RequestStockDTO("ABCD", "Company Name", 10.5);
+            Set<ConstraintViolation<RequestStockDTO>> violations = validator.validate(requestStockDTO);
+            assertFalse(violations.isEmpty());
         }
     }
 }

@@ -15,6 +15,9 @@ public class RequestStockDTO {
         @NotNull(message = "Price cannot be null")
         private Double price;
 
+        public RequestStockDTO(String abc123, String companyName, double v) {
+        }
+
         public String getSymbol() {
                 return symbol;
         }
